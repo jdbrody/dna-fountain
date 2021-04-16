@@ -30,4 +30,4 @@ def lfsr32s():
 def test():
     #run the test to see a stream of seed by the polynomial
     for pattern in lfsr(0b001, 0b100000000000000000000000011000101):
-        print pattern
+        print(pattern)

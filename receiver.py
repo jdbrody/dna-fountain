@@ -12,7 +12,7 @@ import json
 from glass import Glass
 from collections import defaultdict
 from utils import dna_to_byte, split_header 
-import md5
+from hashlib import md5
 from preprocessing import read_file
 from aggressive import Aggressive
 from shutil import copyfile
@@ -199,9 +199,10 @@ def main():
 		 sys.exit(1)
 
 	outstring = g.getString()
-	f = open(args.out, 'wb')
-	f.write(outstring)
-	f.close()
+	#f = open(args.out, 'wb')
+	print(outstring)
+	#f.write(outstring)
+	#f.close()
 
 	logging.info("MD5 is %s", md5.new(outstring).hexdigest())
 

@@ -12,7 +12,7 @@ import json
 from glass import Glass
 from collections import defaultdict
 from utils import dna_to_byte, split_header 
-import md5
+from hashlib import md5
 from preprocessing import read_file
 from aggressive import Aggressive
 from shutil import copyfile

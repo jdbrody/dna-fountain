@@ -6,9 +6,11 @@ from other_screens import dexpandable_alphabet
 import numpy as np
 import operator
 import sys
-from sets import Set
+#from sets import Set
 from collections import defaultdict
-import cPickle as pickle
+#import cPickle as pickle
+import pickle
+from sys import exit as quit
 
 class Glass:
     def __init__(self, num_chunks, out, header_size = 4, 
@@ -17,7 +19,8 @@ class Glass:
                 max_hamming = 100, decode = True, chunk_size = 32, exDNA = False, np = False, truth = None):
         
         self.entries = []
-        self.droplets = Set()
+        #self.droplets = Set()
+        self.droplets = set()
         self.num_chunks = num_chunks
         self.chunks = [None] * num_chunks
         self.header_size = header_size
@@ -26,7 +29,8 @@ class Glass:
         self.exDNA = exDNA
         self.np = np
         self.chunk_to_droplets = defaultdict(set)
-        self.done_segments = Set()
+        #self.done_segments = Set()
+        self.done_segments = set()
         self.truth = truth
         self.out = out
 
@@ -43,7 +47,8 @@ class Glass:
         self.rs = rs
         self.RSCodec = None
         self.correct = flag_correct
-        self.seen_seeds = Set()
+        #self.seen_seeds = Set()
+        self.seen_seeds = set()
         
 
 
@@ -68,7 +73,9 @@ class Glass:
         #error correcting:
         if self.rs > 0:
             #there is an error correcting code
-            if self.correct: #we want to evaluate the error correcting code
+            #JB disabling the below for now
+            #TODO:  fix this for Python3
+            if self.correct and False: #we want to evaluate the error correcting code
                 try:
                     data_corrected = list(self.RSCodec.decode(data))
                     
@@ -76,7 +83,11 @@ class Glass:
                     return -1, None #could not correct the code
 
                 #we will encode the data again to evaluate the correctness of the decoding
+                print("data_corrected is of type", type(data_corrected))
+                print("len data_corrected is ", len(data_corrected))
+                print("data_corrected[0] is of type", type(data_corrected[0]))
                 data_again = list(self.RSCodec.encode(data_corrected)) #list is to convert byte array to int
+
 
                 if np.count_nonzero(data != list(data_again)) > self.max_hamming: #measuring hamming distance between raw input and expected raw input
                     #too many errors to correct in decoding                    

@@ -189,14 +189,14 @@ def test(size, n_symbols, n_bytes):
 
 	
 	array_of_bytes = list(np.random.randint(0, 255, size = size))
-	print array_of_bytes
+	print(array_of_bytes)
 	ex = expandable_alphabet(array_of_bytes, size, n_symbols, n_bytes, alphabet_size = 6)
 	o = dexpandable_alphabet(ex, len(ex), n_symbols, n_bytes)
-	print o
+	print(o)
 	if len(set(o)-set(array_of_bytes)):
-		print "Error"
+		print("Error")
 	else:
-		print "All good"
+		print("All good")
 
 
 #test(21,65,21)

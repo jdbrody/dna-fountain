@@ -10,11 +10,12 @@ from robust_solition import PRNG
 import numpy as np
 import operator
 import sys
-from sets import Set
+#from sets import Set
 from collections import defaultdict
-import cPickle as pickle
+#import cPickle as pickle
+import pickle
 from random import shuffle
-import md5
+from hashlib import md5
 import logging
 import Colorer
 

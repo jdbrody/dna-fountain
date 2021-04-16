@@ -51,7 +51,8 @@ class DNAFountain:
         #things related to random mnumber generator
         self.lfsr = lfsr(lfsr32s(), lfsr32p()) #starting an lfsr with a certain state and a polynomial for 32bits.
         self.lfsr_l = len(    '{0:b}'.format( lfsr32p() )   ) - 1 #calculate the length of lsfr in bits 
-        self.seed = self.lfsr.next()
+        #self.seed = self.lfsr.next()
+        self.seed = next(self.lfsr)
 
 
         self.PRNG = PRNG(K = self.num_chunks, delta = delta, c = c_dist, np = np) #creating the solition distribution object
@@ -113,7 +114,7 @@ class DNAFountain:
 
     def updateSeed(self):
         #This function creates a fresh seed for the droplet and primes the solition inverse cdf sampler
-        self.seed = self.lfsr.next() #deploy one round of lfsr, and read the register.
+        self.seed = next(self.lfsr) #deploy one round of lfsr, and read the register.
         self.PRNG.set_seed(self.seed) #update the seed with the register
 
     def rand_chunk_nums(self):
