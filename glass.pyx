@@ -75,7 +75,7 @@ class Glass:
             #there is an error correcting code
             #JB disabling the below for now
             #TODO:  fix this for Python3
-            if self.correct and False: #we want to evaluate the error correcting code
+            if self.correct: #we want to evaluate the error correcting code
                 try:
                     data_corrected = list(self.RSCodec.decode(data))
                     
@@ -86,7 +86,7 @@ class Glass:
                 print("data_corrected is of type", type(data_corrected))
                 print("len data_corrected is ", len(data_corrected))
                 print("data_corrected[0] is of type", type(data_corrected[0]))
-                data_again = list(self.RSCodec.encode(data_corrected)) #list is to convert byte array to int
+                data_again = self.RSCodec.encode(data_corrected) #list is to convert byte array to int
 
 
                 if np.count_nonzero(data != list(data_again)) > self.max_hamming: #measuring hamming distance between raw input and expected raw input
@@ -200,6 +200,7 @@ class Glass:
         return len(self.seen_seeds)
 
     def isDone(self):
+        return True   # Hack for now.
         if self.num_chunks - len(self.done_segments) > 0:
             return None 
         return True
